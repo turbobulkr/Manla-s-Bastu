@@ -514,10 +514,13 @@ $("#go").onclick=function(){
  fd.append("_subject",subject);fd.append("_captcha","false");fd.append("_template","box");
  fd.append("name",g("fnamn")+" "+g("enamn"));if(g("mail"))fd.append("email",g("mail"));
  fd.append("message",txt);
- files.forEach(function(f){fd.append("attachment",f,f.name)});
+ files.forEach(function(f,i){fd.append("attachment"+(i+1),f,f.name)});
  var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(ctl)ctl.abort()},45000);
- fetch("https://formsubmit.co/ajax/"+EMAIL,{method:"POST",body:fd,headers:{Accept:"application/json"},signal:ctl?ctl.signal:undefined})
- .then(function(r){return r.json()})
+ var hasF=files.length>0;
+ var req=hasF
+  ?fetch("https://formsubmit.co/"+EMAIL,{method:"POST",body:fd,mode:"no-cors",signal:ctl?ctl.signal:undefined}).then(function(){return {success:true}})
+  :fetch("https://formsubmit.co/ajax/"+EMAIL,{method:"POST",body:fd,headers:{Accept:"application/json"},signal:ctl?ctl.signal:undefined}).then(function(r){return r.json()});
+ req
  .then(function(j){
   if(!(j&&(j.success===true||j.success==="true")))throw new Error("fail");
   var n=$("#cnote");n.textContent="Tack! Din förfrågan"+(files.length?" och dina bilder":"")+" har skickats till Manla’s Bastu. Vi hör av oss så snart vi kan.";
