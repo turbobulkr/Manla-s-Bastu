@@ -384,6 +384,7 @@ h1 em,h2 em,.btx b em{font-family:"Anton","Oswald","Arial Narrow",Impact,sans-se
 .build .pl,.build .btx{animation:none!important}
 .build{visibility:visible;display:none}.build.on{display:block}
 .btx{opacity:0}
+.build{display:none!important}
 </style>
 </head>
 <body>
@@ -846,8 +847,6 @@ function initEditor(art){
 <script id="fx2">
 (function(){
  var d=document,reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
- function $(q){return d.querySelector(q)}
- var can=typeof Element!=="undefined"&&Element.prototype.animate;
  /* sågspån vid knapptryck */
  d.addEventListener("pointerdown",function(e){
   if(reduce)return;var t=e.target.closest&&e.target.closest(".btn,.soc a,.chip,.chips button");if(!t)return;
@@ -855,51 +854,6 @@ function initEditor(art){
   for(var i=0;i<14;i++){var s=d.createElement("span");s.className="dust";var a=Math.random()*Math.PI*2,v=30+Math.random()*60;
    s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";s.style.setProperty("--dx",Math.cos(a)*v+"px");s.style.setProperty("--dy",(Math.sin(a)*v+20)+"px");s.style.setProperty("--c",cols[i%4]);
    s.style.width=s.style.height=(3+Math.random()*5)+"px";d.body.appendChild(s);setTimeout(function(x){x.remove()}.bind(null,s),800)}
- },true);
- /* byggövergång, styrd med Web Animations så att den fungerar på mobil */
- var N=11,B=d.createElement("div");B.className="build";B.id="build";B.setAttribute("aria-hidden","true");
- var h="";for(var i=0;i<N;i++){var top=(100/N)*(N-1-i);h+='<div class="pl" data-n="'+i+'" style="top:'+top+'%;height:'+(100/N+.6)+'%"></div>'}
- B.innerHTML=h+'<div class="btx"><div><b></b></div></div>';d.body.appendChild(B);
- var planks=[].slice.call(B.querySelectorAll(".pl")),btx=B.querySelector(".btx");
- function sx(i){return i%2?"110%":"-110%"}
- function resetBuild(){planks.forEach(function(pl,i){pl.getAnimations&&pl.getAnimations().forEach(function(a){a.cancel()});pl.style.transform="translateX("+sx(i)+")"});
-  btx.getAnimations&&btx.getAnimations().forEach(function(a){a.cancel()});btx.style.opacity="0"}
- resetBuild();
- var busy=false;
- function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
- function frame(){return new Promise(function(r){requestAnimationFrame(function(){requestAnimationFrame(r)})})}
- async function go(id,typ,big){
-  var el=d.getElementById(id);if(!el)return;
-  if(typ){var t=$("#typ");if(t&&!t.value){t.value=typ;t.dispatchEvent(new Event("change"))}}
-  if(reduce||!can){el.scrollIntoView({behavior:"smooth"});return}
-  if(busy)return;busy=true;
-  var hd=$("header");if(hd&&hd.classList.contains("open")){var mb=$(".menu");mb&&mb.click()}
-  btx.querySelector("b").innerHTML=big?'Bygger din <em>bastu</em>…<small>Ett ögonblick, brädorna läggs på plats</small>':'Lägger <em>bräda</em> för bräda…';
-  resetBuild();B.classList.add("on");await frame();
-  planks.forEach(function(pl,i){pl.animate([{transform:"translateX("+sx(i)+")"},{transform:"translateX(0)"}],{duration:520,delay:i*60,easing:"cubic-bezier(.2,.9,.25,1.12)",fill:"forwards"})});
-  btx.animate([{opacity:0,transform:"scale(.9)"},{opacity:1,transform:"scale(1)"}],{duration:450,delay:big?650:520,easing:"cubic-bezier(.2,1.3,.4,1)",fill:"forwards"});
-  await wait(big?1500:1150);
-  el.scrollIntoView({behavior:"instant"});
-  var kids=[];
-  var cand=[].slice.call(el.querySelectorAll("h2,.wrap>p,.list div,.rev,.steps li,#f fieldset,#f .row,#go,#f .kn,.contact,.soc,.two>*,.chip,.grid .pic,.reviews,.strip .pic,.hero h1,.hero .cta,.hero .ring"));
-  var seen=[];cand.forEach(function(k){var tp=k.getBoundingClientRect().top;if(tp<innerHeight+120&&tp>-400&&seen.indexOf(k)<0)seen.push(k)});
-  kids=seen.filter(function(k){return !seen.some(function(o){return o!==k&&o.contains(k)})});
-  kids.forEach(function(k){k.classList.add("in")});
-  btx.animate([{opacity:1},{opacity:0}],{duration:220,fill:"forwards"});
-  planks.forEach(function(pl,i){pl.animate([{transform:"translateX(0)"},{transform:"translateX("+sx(i)+")"}],{duration:460,delay:(N-i)*45,easing:"cubic-bezier(.6,0,.8,.4)",fill:"forwards"})});
-  await wait(350);
-  kids.forEach(function(k,i){
-   var dir=(i%2)?1:-1;
-   k.animate([{opacity:0,transform:"translateX("+(dir*70)+"px) rotate("+(dir*3)+"deg)"},{opacity:1,transform:"none"}],{duration:760,delay:Math.min(i,12)*85,easing:"cubic-bezier(.2,1.1,.3,1)",fill:"backwards"});
-  });
-  await wait(N*45+520);
-  B.classList.remove("on");resetBuild();busy=false;
- }
- d.addEventListener("click",function(e){
-  var a=e.target.closest&&e.target.closest("[data-go]");if(!a)return;
-  var id=a.getAttribute("data-go");if(!id)return;
-  e.preventDefault();e.stopImmediatePropagation();
-  go(id,a.getAttribute("data-typ"),id==="planera");
  },true);
 })();
 </script>
