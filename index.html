@@ -20,6 +20,7 @@
 <link data-site rel="preconnect" href="https://fonts.googleapis.com">
 <link data-site rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link data-site href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link data-site rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Anton&amp;display=swap">
 <style id="site-style">
 :root{color-scheme:light only;--head:"Zilla Slab",Rockwell,"Roboto Slab",Georgia,serif;--body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--bg:#ede9e3;--fg:#1b1b1b;--mut:#4f493f;--card:#ffffff;--line:#ddd5ca;--red:#81100f;--gold:#d69616;--trim:#fbf8f2;--ph:#e7e0d2;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -200,6 +201,186 @@ legend{padding:0}
 @media (max-width:760px){#go{width:100%;margin-top:6px}}
 @media (min-width:761px){.steps{grid-template-columns:repeat(3,1fr)}.steps li{align-items:flex-start}}
 .kn{margin:6px 0 0;font-size:.9rem;color:var(--mut)}@media (hover:none){a.crow:hover{background:var(--red)}nav a[href="#planera"]:hover{background:var(--red);color:#fff}.th button:hover{background:rgba(20,16,14,.78)}.chip:hover{border-color:var(--red)}.btn:hover{transform:none;box-shadow:none}}
+
+/* ====== v2: glas, bubblor och rörelse ====== */
+:root{--glass:rgba(255,255,255,.55);--glass-b:rgba(255,255,255,.75);--sh:0 10px 40px rgba(60,30,20,.10)}
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
+.bgfx i:nth-child(1){width:46vmax;height:46vmax;left:-14vmax;top:-10vmax;background:#c8433d;opacity:.28;animation:fl1 22s ease-in-out infinite alternate}
+.bgfx i:nth-child(2){width:38vmax;height:38vmax;right:-12vmax;top:30vh;background:#e7b23b;opacity:.30;animation:fl2 26s ease-in-out infinite alternate}
+.bgfx i:nth-child(3){width:42vmax;height:42vmax;left:10vw;bottom:-18vmax;background:#9c5a3a;opacity:.20;animation:fl3 30s ease-in-out infinite alternate}
+@keyframes fl1{to{transform:translate(12vmax,10vmax) scale(1.15)}}
+@keyframes fl2{to{transform:translate(-10vmax,-8vmax) scale(1.2)}}
+@keyframes fl3{to{transform:translate(8vmax,-10vmax) scale(.9)}}
+section.tint,section.tint{background:transparent}
+.list div,.steps li,form,.pic:not(.strip .pic),.contact{background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--glass-b);box-shadow:var(--sh)}
+.list div{border-left:4px solid var(--red)}
+.grid .pic,.two .pic,.strip .pic{border-radius:20px;overflow:hidden}
+.grid .pic{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.list div{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+@media (hover:hover){.grid .pic:hover,.list div:hover,.rev:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(60,30,20,.18)}}
+form{border-radius:24px;border-top:1px solid var(--glass-b)}
+.contact{background:rgba(129,16,15,.88)}
+.steps li{padding:12px 16px;border-radius:16px}
+header{background:rgba(237,233,227,.62)}
+/* reviews */
+.reviews{display:grid;gap:16px;margin-top:26px}
+@media (min-width:900px){.reviews{grid-template-columns:repeat(3,1fr);gap:22px}}
+.rev{margin:0;position:relative;padding:34px 24px 22px;border-radius:24px;background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--glass-b);box-shadow:var(--sh);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.rev .q{position:absolute;top:-6px;left:18px;font:700 5rem/1 var(--head);color:var(--gold);opacity:.9}
+.rev blockquote{margin:6px 0 14px;font-size:1.08rem;line-height:1.55;color:var(--fg)}
+.rev figcaption{font-weight:700;color:var(--red);font-size:.95rem}
+/* social */
+.soc{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.soc a{display:inline-flex;align-items:center;gap:10px;padding:10px 18px 10px 14px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--glass-b);color:var(--fg);text-decoration:none;font-weight:700;box-shadow:0 6px 20px rgba(60,30,20,.08);transition:transform .25s,background .25s,color .25s}
+.soc svg{width:22px;height:22px;flex:none}
+@media (hover:hover){.soc a:hover{transform:translateY(-3px);background:var(--red);color:#fff}}
+.soc.hero{margin-top:18px}
+.soc.big{margin-top:30px}
+.soc.foot a{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff;box-shadow:none;align-self:flex-start}
+.soc.foot{margin-top:8px}
+/* motion */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.js .hero h1,.js .hero .wrap>p,.js .hero .cta,.js .hero .soc,.js .hero .ring,.js .hero .strip{animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.js .hero h1{animation-delay:.1s}.js .hero .wrap>p{animation-delay:.2s}.js .hero .cta{animation-delay:.3s}.js .hero .soc{animation-delay:.4s}.js .hero .ring{animation-delay:.45s}.js .hero .strip{animation-delay:.55s}
+@keyframes zin{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+.js .herologo{animation:zin 1.4s cubic-bezier(.2,.8,.2,1) both}
+.btn{transition:transform .25s,box-shadow .25s,background .25s}
+@media (prefers-reduced-motion:reduce){.bgfx i,.js .hero *,.js .herologo{animation:none!important}.js .rv{opacity:1;transform:none;transition:none}}
+body{background:transparent}.hero,#hem{background:transparent}
+.herologo{-webkit-mask-image:linear-gradient(#000 92%,transparent);mask-image:linear-gradient(#000 92%,transparent)}
+footer{position:relative}
+
+/* ====== v2b: stil som referenssidan (Geist, aurora, glas, mono-etiketter) ====== */
+:root{--head:"Geist","Helvetica Neue",Arial,system-ui,sans-serif;--body:"Geist","Helvetica Neue",Arial,system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;--serif:"Instrument Serif","Times New Roman",serif;
+ --glass:rgba(255,255,255,.62);--glass-b:rgba(255,255,255,.8);--stroke:rgba(40,28,16,.10);--sh:0 12px 30px -20px rgba(60,35,10,.30)}
+body{font-family:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--head);font-weight:600;letter-spacing:-.035em}
+h2{text-transform:none;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.04em}
+h1{letter-spacing:-.04em;text-wrap:balance}
+h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0;font-size:1.1em;color:var(--red)}
+h2::after{width:44px;height:3px;border-radius:3px;margin-top:14px}
+.list h3,.rev b{font-family:var(--head);letter-spacing:-.01em}
+.pic figcaption,.kn,.steps li,.opt,.fh{font-family:var(--body)}
+/* aurora i stället för prickar */
+.bgfx i{filter:blur(46px);border-radius:50%;opacity:1;left:-10%;width:130%;height:34%;background:none}
+.bgfx i:nth-child(1){top:2%;background:linear-gradient(90deg,transparent 4%,rgba(129,16,15,.16) 22%,rgba(214,150,22,.34) 48%,rgba(196,90,40,.20) 68%,transparent 92%);transform:rotate(-14deg);animation:sway 16s ease-in-out infinite alternate}
+.bgfx i:nth-child(2){top:46%;height:9%;filter:blur(18px);background:linear-gradient(90deg,transparent 12%,rgba(250,215,140,.55) 44%,rgba(214,150,22,.35) 62%,transparent 86%);transform:rotate(-10deg);animation:sway 12s ease-in-out infinite alternate-reverse}
+.bgfx i:nth-child(3){top:62%;height:32%;filter:blur(56px);background:linear-gradient(90deg,transparent 10%,rgba(129,16,15,.14) 40%,rgba(214,120,40,.14) 70%,transparent 95%);transform:rotate(12deg);animation:sway 20s ease-in-out infinite alternate}
+@keyframes sway{0%{translate:0 0;scale:1 1}50%{translate:4% -5%;scale:1.05 1.25}100%{translate:-4% 4%;scale:.96 .9}}
+/* mono-etiketter och pill */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;margin:0 0 16px;padding:7px 13px;border-radius:999px;background:var(--glass);border:1px solid var(--stroke);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font:500 12px/1.2 var(--mono);letter-spacing:.02em;color:var(--mut)}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(214,150,22,.16),0 0 10px var(--gold)}
+/* glaskort */
+.list div,.steps li,form,.rev,.contact,.pic:not(.strip .pic){border:1px solid var(--stroke);box-shadow:var(--sh);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3)}
+.list div,.rev,form{background:var(--glass)}
+.rev{padding:32px 24px 22px;border-radius:20px}
+.rev .q{font:400 5.2rem/1 var(--serif);font-style:italic;top:-2px;color:var(--gold)}
+.rev blockquote{font-size:1.06rem;letter-spacing:-.005em}
+.rev figcaption{display:grid;gap:3px;color:var(--fg)}
+.rev figcaption b{font-weight:600;font-size:1rem}
+.rev figcaption span{font:400 .78rem var(--mono);color:var(--mut)}
+.btn{font-weight:500;letter-spacing:0}
+.btn:hover{box-shadow:0 10px 30px -8px rgba(214,150,22,.6)}
+.soc a{font-weight:500}
+.ring{font-family:var(--mono);font-size:.85rem}
+.ring a{font-family:var(--body)}
+.steps b{font:500 .8rem var(--mono)}
+.chip,.chip:hover{font-family:var(--body)}
+/* rubriker blurrar in */
+.js .rv{filter:blur(8px);transition-property:opacity,transform,filter}
+.js .rv.in{filter:none}
+.js .hero h1{animation-name:upblur}
+@keyframes upblur{from{opacity:0;filter:blur(12px);transform:translateY(24px)}to{opacity:1;filter:none;transform:none}}
+@media (prefers-reduced-motion:reduce){.js .rv{filter:none}.js .hero h1{animation:none!important}}
+
+/* ====== v2c: snickeri-animationer + mobilen ====== */
+.rev .q{position:static;font:0;margin:0 0 12px;color:var(--gold);height:auto;line-height:0}
+.rev .qi{width:34px;height:26px;display:block}
+.rev{padding:26px 24px 22px}
+.ring{margin:18px 0 0}
+.ring .rt{display:inline}
+.ring a{white-space:nowrap}
+.soc.hero{margin-top:14px}
+/* byggbrädor som övergång */
+.build{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden}
+.build.on{visibility:visible;pointer-events:all}
+.pl{position:absolute;left:0;right:0;transform:translateX(var(--sx,-110%));will-change:transform;
+ background:
+  radial-gradient(circle at 14px 50%,#3b2a17 0 3px,transparent 3.5px),
+  radial-gradient(circle at calc(100% - 14px) 50%,#3b2a17 0 3px,transparent 3.5px),
+  repeating-linear-gradient(90deg,rgba(60,35,10,.07) 0 2px,transparent 2px 11px),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px),
+  var(--w,#c9985a);
+ box-shadow:inset 0 -4px 0 rgba(60,35,10,.35),inset 0 2px 0 rgba(255,255,255,.18),0 6px 14px rgba(0,0,0,.25)}
+.pl:nth-child(3n+1){--w:#c9985a}.pl:nth-child(3n+2){--w:#b88548}.pl:nth-child(3n){--w:#d7ad71}
+.build.in .pl{animation:plin .46s cubic-bezier(.2,.9,.25,1.15) both;animation-delay:calc(var(--n)*55ms)}
+.build.out .pl{animation:plout .42s cubic-bezier(.6,0,.8,.4) both;animation-delay:calc((var(--c) - var(--n))*40ms)}
+@keyframes plin{from{transform:translateX(var(--sx))}to{transform:none}}
+@keyframes plout{from{transform:none}to{transform:translateX(var(--sx))}}
+.btx{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;opacity:0;transform:scale(.9)}
+.btx b{display:block;padding:18px 26px;border-radius:18px;background:rgba(27,18,10,.86);color:#f6e7cf;font:600 clamp(1.3rem,5vw,2rem)/1.2 var(--head);letter-spacing:-.02em;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.btx b em{color:var(--gold)}
+.btx small{display:block;margin-top:8px;font:400 .8rem var(--mono);color:#d8c19c;letter-spacing:.04em}
+.build.in .btx{animation:btin .5s .55s cubic-bezier(.2,1.3,.4,1) both}
+.build.out .btx{animation:btout .25s ease both}
+@keyframes btin{to{opacity:1;transform:none}}
+@keyframes btout{from{opacity:1}to{opacity:0;transform:scale(1.05)}}
+/* innehållet byggs in bräda för bräda */
+.bin{animation:bin .75s cubic-bezier(.2,1.1,.3,1) both;animation-delay:calc(var(--k,0)*85ms)}
+@keyframes bin{0%{opacity:0;transform:translateX(var(--bx,-70px)) rotate(var(--br,-3deg))}60%{opacity:1}100%{opacity:1;transform:none}}
+.bin:nth-child(even){--bx:70px;--br:3deg}
+/* kort slår ner som brädor */
+.js .rev.rv,.js .list div.rv,.js .steps li.rv{transition-timing-function:cubic-bezier(.2,1.15,.3,1)}
+.js .rev.rv:nth-child(odd),.js .list div.rv:nth-child(odd){transform:translateX(-56px) rotate(-2.2deg)}
+.js .rev.rv:nth-child(even),.js .list div.rv:nth-child(even){transform:translateX(56px) rotate(2.2deg)}
+.js .rev.rv.in,.js .list div.rv.in{transform:none}
+/* rubriker sågas fram */
+.js h2.rv{opacity:1;filter:none;transform:none;transition:none}
+.js h2.rv .sw{display:block;clip-path:inset(-8% 100% -30% -2%);transition:clip-path .95s cubic-bezier(.7,0,.2,1)}
+.js h2.rv.in .sw{clip-path:inset(-8% -4% -30% -2%)}
+/* sågspån */
+.dust{position:fixed;z-index:300;width:6px;height:6px;border-radius:50%;pointer-events:none;background:var(--c,#d7ad71);animation:dust .75s cubic-bezier(.1,.7,.3,1) forwards}
+@keyframes dust{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+@media (prefers-reduced-motion:reduce){.build{display:none}.bin,.dust{animation:none!important}
+.js h2.rv .sw{clip-path:none}}
+/* mobil: centrera och rätta till */
+@media (max-width:760px){
+ .hero .wrap{text-align:center}
+ .hero h1,.hero .wrap>p{margin-inline:auto}
+ .ring{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:1rem}
+ .ring .rt{display:block}
+ .ring a{display:block;font-size:1.55rem;letter-spacing:.01em}
+ .soc{justify-content:center}
+ #omdomen .wrap>.eyebrow,#omdomen .wrap>h2,#omdomen .wrap>p{text-align:center}
+ .eyebrow{display:flex;width:max-content;max-width:100%;margin-inline:auto}
+ section>.wrap>h2,section .two h2,section h2{text-align:center}
+ h2::after{margin-inline:auto}
+ section>.wrap>p{text-align:center}
+ .reviews{margin-top:22px}
+ .rev{text-align:center}
+ .rev .qi{margin-inline:auto}
+ .rev figcaption{justify-items:center}
+ .contact{text-align:center}
+ .crow{align-items:center}
+ .foot{justify-items:center;text-align:center;justify-content:center}
+ .fcol{align-items:center}
+ .fcol a,.soc.foot a{align-self:center}
+ .flogo{margin-inline:auto}
+ .soc.foot{justify-content:center}
+ .steps li{text-align:left}
+}
+html,body{overflow-x:clip}
+
+/* ====== v2d ====== */
+.eyebrow{display:none!important}
+h1 em,h2 em,.btx b em{font-family:"Anton","Oswald","Arial Narrow",Impact,sans-serif;font-style:normal;font-weight:400;text-transform:uppercase;letter-spacing:.025em;font-size:1.02em;color:var(--red)}
+.btx b em{color:var(--gold)}
+.hero .strip{margin-top:10px}
+@media (min-width:761px){.hero .strip{margin-top:40px}}
+.hero{padding-bottom:40px}.soc.hero{justify-content:center}
 </style>
 </head>
 <body>
@@ -214,15 +395,23 @@ legend{padding:0}
 <section class="hero" id="hem">
 <img class="herologo" data-img="herologo" alt="Manla’s Bastu – Bastu och måleriarbete">
 <div class="wrap">
-<h1>Bastu och snickeri, byggt för hand av far och son</h1>
+<h1>Bastu och <em>snickeri</em>, byggt för hand av far och son</h1>
 <p>Vi bygger timmerhusbastur och gör allt från altaner till takreparationer. Över 45 års erfarenhet i varje bygge. Gratis offert, och vi bygger i Gävleborg, Dalarna, Jämtland, Västernorrland, Uppsala och Stockholms län.</p>
 <div class="cta"><a class="btn" href="#projekt" data-go="projekt">Se våra projekt</a><a class="btn alt" href="#planera" data-go="planera">Planera ditt bygge</a></div>
-<p class="ring">Eller ring oss direkt: <a href="tel:+46793550026">079-355 00 26</a></p>
+<p class="ring"><span class="rt">Eller ring oss direkt:</span> <a href="tel:+46793550026">079-355 00 26</a></p>
+<div class="soc hero"><a href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8s-1.3-.2-2.5-.2c-2.6 0-4.2 1.5-4.2 4.3v2.6H7.5v3.3h2.7V22z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/manlasbastu/" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Instagram" data-ig><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3z"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a></div>
 <div class="strip"><figure class="pic"><img data-img="red" alt="Röd timmerhusbastu med vita knutar och grön dörr"></figure><figure class="pic"><img data-img="p2" alt="Mörkgrå timmerhusbastu med stora fönster i skymningen"></figure><figure class="pic"><img data-img="hero1" alt="Röd bastu med vita knutar och altan bredvid huset"></figure></div>
 </div></section>
 
+<section id="omdomen"><div class="wrap">
+<h2 class="rv">Vad våra <em>kunder</em> säger</h2>
+<p class="rv">Nöjda kunder är det bästa betyget. Här är några av orden vi fått.</p>
+<div class="reviews"><figure class="rev rv"><div class="q" aria-hidden="true"><svg class="qi" viewBox="0 0 48 36" aria-hidden="true"><path fill="currentColor" d="M0 36V20C0 8 7 1 19 0v8c-6 1-9 5-9 10h9v18H0zm27 0V20C27 8 34 1 46 0v8c-6 1-9 5-9 10h9v18H27z"/></svg></div><blockquote>Tack för ett jättebra arbete, på budget och före utsatt tid. Och fint blev det! Vi är mycket nöjda.</blockquote><figcaption><b>Pål Weiner</b><span>Facebook</span></figcaption></figure><figure class="rev rv"><div class="q" aria-hidden="true"><svg class="qi" viewBox="0 0 48 36" aria-hidden="true"><path fill="currentColor" d="M0 36V20C0 8 7 1 19 0v8c-6 1-9 5-9 10h9v18H0zm27 0V20C27 8 34 1 46 0v8c-6 1-9 5-9 10h9v18H27z"/></svg></div><blockquote>Mycket kunnig och tillmötesgående ägare. Kan sin sak och bygger efter kundens önskemål. Mycket nöjd med vår bastu!</blockquote><figcaption><b>Carl Brännström</b><span>31 mars 2025</span></figcaption></figure><figure class="rev rv"><div class="q" aria-hidden="true"><svg class="qi" viewBox="0 0 48 36" aria-hidden="true"><path fill="currentColor" d="M0 36V20C0 8 7 1 19 0v8c-6 1-9 5-9 10h9v18H0zm27 0V20C27 8 34 1 46 0v8c-6 1-9 5-9 10h9v18H27z"/></svg></div><blockquote>Jättefin bastu, älskar figuren och färgerna. Dessutom så är Anas en väldigt duktig snickare.</blockquote><figcaption><b>Nöjd kund</b><span>Kundomdöme</span></figcaption></figure></div>
+<div class="soc big rv"><a href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8s-1.3-.2-2.5-.2c-2.6 0-4.2 1.5-4.2 4.3v2.6H7.5v3.3h2.7V22z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/manlasbastu/" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Instagram" data-ig><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3z"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a></div>
+</div></section>
+
 <section id="projekt"><div class="wrap">
-<h2>Våra projekt</h2>
+<h2>Våra <em>projekt</em></h2>
 <p>Ett urval av vårt senaste arbete. Välj en kategori för att filtrera.</p>
 <div class="chips" id="chips" role="group" aria-label="Filtrera projekt"></div>
 <div class="grid" id="grid"></div>
@@ -230,7 +419,7 @@ legend{padding:0}
 
 <section id="bastu" class="tint"><div class="wrap two">
 <div>
-<h2>Timmerhusbastu</h2>
+<h2>Timmerhus<em>bastu</em></h2>
 <p>Bastun är vår specialitet. Vi bygger timmerhusbastur efter dina mått och önskemål, och tar hand om hela bygget från grund till färdig bastu.</p>
 <div class="list" style="grid-template-columns:1fr">
 <div><h3>Storlek och form</h3><p>Från liten bastu för två till rymliga bastur med omklädningsrum. Rektangulära eller sexkantiga.</p></div>
@@ -242,7 +431,7 @@ legend{padding:0}
 </div></section>
 
 <section id="snickeri"><div class="wrap">
-<h2>Övrigt snickeri</h2>
+<h2>Övrigt <em>snickeri</em></h2>
 <p>Efter 45 år i yrket kan vi det mesta inom snickeri. Här är det vi oftast bygger.</p>
 <div class="list">
 <div><h3>Altan och trall</h3><p>Nya altaner, uteplatser och trall, även med pergolatak.</p></div>
@@ -255,7 +444,7 @@ legend{padding:0}
 </div></section>
 
 <section id="planera"><div class="wrap">
-<h2>Planera ditt bygge</h2>
+<h2>Planera ditt <em>bygge</em></h2>
 <p>Berätta vad du vill ha gjort så återkommer vi med ett förslag och en <b>gratis offert</b>. Vi bygger i Gävleborg, Dalarna, Jämtland, Västernorrland, Uppsala och Stockholms län.</p>
 <ol class="steps"><li><b>1</b> Berätta om ditt bygge och skicka gärna bilder</li><li><b>2</b> Vi hör av oss med förslag och gratis offert</li><li><b>3</b> Du bestämmer, sedan bygger vi</li></ol>
 <form id="f" onsubmit="return false" novalidate>
@@ -281,13 +470,13 @@ legend{padding:0}
 <section id="om" class="tint"><div class="wrap two">
 <figure class="pic tall"><img data-img="dad" alt="Snickaren framför en bastu under bygge"></figure>
 <div>
-<h2>Om oss</h2>
+<h2>Om <em>oss</em></h2>
 <p>Manla’s Bastu är ett familjeföretag där far och son arbetar sida vid sida. Anas Manla har varit snickare i över 45 år och kan i princip allt inom yrket.</p>
 <p>Vi har specialiserat oss på timmerhusbastur, men tar gärna andra snickeriprojekt också. Du pratar alltid direkt med dem som bygger.</p>
 </div></div></section>
 
 <section id="kontakt"><div class="wrap">
-<h2>Kontakt</h2>
+<h2><em>Kontakt</em></h2>
 <p>Kontaktperson är <b>Mohamed Manla</b>. Ring eller skriv, så berättar vi hur vi kan hjälpa dig. Offert är alltid gratis.</p>
 <p>Vi är baserade i Ljusdal och bygger i Gävleborg, Dalarna, Jämtland, Västernorrland, Uppsala och Stockholms län.</p>
 <div class="contact">
@@ -296,6 +485,7 @@ legend{padding:0}
 <a class="crow" href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener"><span class="k">Facebook</span><span class="v">Manla’s Bastu</span></a>
 <div class="crow"><span class="k">Ort</span><span class="v">Ljusdal</span></div>
 </div>
+<div class="soc rv"><a href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8s-1.3-.2-2.5-.2c-2.6 0-4.2 1.5-4.2 4.3v2.6H7.5v3.3h2.7V22z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/manlasbastu/" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Instagram" data-ig><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3z"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a></div>
 </div></section>
 </main>
 
@@ -306,7 +496,7 @@ legend{padding:0}
 <span class="fcity">Ljusdal</span>
 <a href="tel:+46793550026">079-355 00 26</a>
 <a href="mailto:manlasbastu@gmail.com">manlasbastu@gmail.com</a>
-<a href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener">Facebook</a>
+<div class="soc foot"><a href="https://www.facebook.com/ManlasBastuBygge" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8s-1.3-.2-2.5-.2c-2.6 0-4.2 1.5-4.2 4.3v2.6H7.5v3.3h2.7V22z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/manlasbastu/" target="_blank" rel="noopener" aria-label="Manla’s Bastu på Instagram" data-ig><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3z"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg><span>Instagram</span></a></div>
 </div>
 </div></footer>
 
@@ -631,6 +821,72 @@ function initEditor(art){
   if(editing&&e.target.isContentEditable){e.preventDefault();var t=(e.clipboardData||window.clipboardData).getData("text/plain");document.execCommand("insertText",false,t.replace(/\s+/g," "))}
  });
 }
+})();
+</script>
+<script id="fx">
+(function(){
+ var d=document,root=d.documentElement;
+ try{
+  root.classList.add("js");
+  var bg=d.createElement("div");bg.className="bgfx";bg.setAttribute("aria-hidden","true");bg.innerHTML="<i></i><i></i><i></i>";d.body.insertBefore(bg,d.body.firstChild);
+  [].slice.call(d.querySelectorAll("main h2")).forEach(function(h){h.innerHTML='<span class="sw">'+h.innerHTML+"</span>"});
+  var sel="main section > .wrap > h2,main section > .wrap > p,.list div,.steps li,form,.two > *,.contact,.strip .pic,#kontakt .soc,.rev";
+  var els=[].slice.call(d.querySelectorAll(sel));
+  els.forEach(function(e,i){e.classList.add("rv");e.style.setProperty("--d",((i%4)*0.08)+"s")});
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+  [].slice.call(d.querySelectorAll(".rv")).forEach(function(e){io.observe(e)});
+  setTimeout(function(){[].slice.call(d.querySelectorAll(".rv")).forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight)e.classList.add("in")})},50);
+ }catch(e){}
+})();
+</script>
+<script id="fx2">
+(function(){
+ var d=document,reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+ function $(q){return d.querySelector(q)}
+ /* sågspån vid knapptryck */
+ d.addEventListener("pointerdown",function(e){
+  if(reduce)return;var t=e.target.closest&&e.target.closest(".btn,.soc a,.chip,.chips button");if(!t)return;
+  var cols=["#d7ad71","#c9985a","#b88548","#e9cf9d"];
+  for(var i=0;i<14;i++){var s=d.createElement("span");s.className="dust";var a=Math.random()*Math.PI*2,v=30+Math.random()*60;
+   s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";s.style.setProperty("--dx",Math.cos(a)*v+"px");s.style.setProperty("--dy",(Math.sin(a)*v+20)+"px");s.style.setProperty("--c",cols[i%4]);
+   s.style.width=s.style.height=(3+Math.random()*5)+"px";d.body.appendChild(s);setTimeout(function(x){x.remove()}.bind(null,s),800)}
+ },true);
+ /* byggövergång */
+ var N=11,B=d.createElement("div");B.className="build";B.id="build";B.setAttribute("aria-hidden","true");
+ var h="";for(var i=0;i<N;i++){var top=(100/N)*(N-1-i);h+='<div class="pl" style="top:'+top+'%;height:'+(100/N+.6)+'%;--n:'+i+';--c:'+N+';--sx:'+(i%2?"110%":"-110%")+'"></div>'}
+ B.innerHTML=h+'<div class="btx"><div><b></b></div></div>';d.body.appendChild(B);
+ var busy=false;
+ function go(id,typ,big){
+  var el=d.getElementById(id);if(!el)return;
+  if(typ){var t=$("#typ");if(t&&!t.value){t.value=typ;t.dispatchEvent(new Event("change"))}}
+  if(reduce){el.scrollIntoView({behavior:"smooth"});return}
+  if(busy)return;busy=true;
+  var hd=$("header");if(hd&&hd.classList.contains("open")){var mb=$(".menu");mb&&mb.click()}
+  var tx=B.querySelector(".btx b");
+  tx.innerHTML=big?'Bygger din <em>bastu</em>…<small>Ett ögonblick, brädorna läggs på plats</small>':'Lägger <em>bräda</em> för bräda…';
+  B.classList.remove("out");B.classList.add("on");void B.offsetWidth;B.classList.add("in");
+  setTimeout(function(){
+   el.scrollIntoView({behavior:"instant"});
+   var kids=[];
+   var cand=[].slice.call(el.querySelectorAll("h2,.wrap>p,.list div,.rev,.steps li,#f fieldset,#f .row,#go,#f .kn,.contact,.soc,.two>*,.chip,.grid .pic,.reviews,.strip .pic,.hero h1,.hero .cta,.hero .ring"));
+   var seen=[];cand.forEach(function(k){var t=k.getBoundingClientRect().top;if(t<innerHeight+120&&t>-400&&seen.indexOf(k)<0){seen.push(k)}});
+   kids=seen.filter(function(k){return !seen.some(function(o){return o!==k&&o.contains(k)})});
+   kids.forEach(function(k){k.classList.remove("bin");k.classList.add("in");k.style.opacity="0"});
+   B.classList.remove("in");B.classList.add("out");
+   setTimeout(function(){
+    kids.forEach(function(k,i){k.style.opacity="";k.style.setProperty("--k",Math.min(i,12));void k.offsetWidth;k.classList.add("bin");
+     k.addEventListener("animationend",function(){k.classList.remove("bin")},{once:true})});
+   },300);
+   setTimeout(function(){B.classList.remove("on","out");busy=false},N*40+520);
+  },big?1250:800);
+ }
+ d.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("[data-go]");if(!a)return;
+  var id=a.getAttribute("data-go");if(!id||id==="hem"&&false)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  go(id,a.getAttribute("data-typ"),id==="planera");
+ },true);
 })();
 </script>
 </body>
